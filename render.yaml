@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: golf-beginner-chatbot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/ready
+    envVars:
+      - key: QDRANT_MODE
+        value: cloud
+      - key: QDRANT_URL
+        sync: false
+      - key: QDRANT_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-5-mini
+      - key: EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: COLLECTION_NAME
+        value: golf_knowledge
